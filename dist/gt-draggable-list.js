@@ -39,5 +39,5 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           Next
         </button>
       </div>
-    `,data(){return{items:r}},methods:{goToNext(){let a=r;$(window).trigger("endDraggableList",{sortedItems:a,returnLabel:i})}},mounted(){let a=this,o=GP.create(a.$refs.list,{animation:150,ghostClass:"ghost"})}}).mount(t)});})();
+    `,data(){return{items:r,sortedItems:null,sortable:null}},methods:{goToNext(){let a=this;$(window).trigger("endDraggableList",{sortedItems:a.sortedItems,returnLabel:i}),a.$.appContext.app.unmount()}},mounted(){let a=this;a.sortedItems=r.slice(),a.sortable=GP.create(a.$refs.list,{animation:150,ghostClass:"ghost",onUpdate(o){let l=a.sortedItems[o.oldIndex];a.sortedItems.splice(o.oldIndex,1),a.sortedItems.splice(o.newIndex,0,l)}})},beforeUnmount(){this.sortable.destroy()}}).mount(t)});})();
 /*! Sortable 1.14.0 - MIT | git://github.com/SortableJS/Sortable.git */

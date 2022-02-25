@@ -23,24 +23,44 @@ $(window).on("startGTDraggableList", (event, data) => {
     data() {
       return {
         items,
+        sortedItems: null,
+        sortable: null,
       }
     },
 
     methods: {
       goToNext() {
-        const sortedItems = items
-        $(window).trigger("endDraggableList", { sortedItems, returnLabel })
+        const self = this
+
+        $(window).trigger("endDraggableList", {
+          sortedItems: self.sortedItems,
+          returnLabel,
+        })
+
+        self.$.appContext.app.unmount()
       },
     },
 
     mounted() {
       const self = this
+      self.sortedItems = items.slice()
 
-      const sortable = Sortable.create(self.$refs.list, {
+      self.sortable = Sortable.create(self.$refs.list, {
         animation: 150,
-        // handle: "glyphicon glyphicon-move",
         ghostClass: "ghost",
+        // handle: "glyphicon glyphicon-move",
+
+        onUpdate(event) {
+          const item = self.sortedItems[event.oldIndex]
+          self.sortedItems.splice(event.oldIndex, 1)
+          self.sortedItems.splice(event.newIndex, 0, item)
+        },
       })
+    },
+
+    beforeUnmount() {
+      const self = this
+      self.sortable.destroy()
     },
   })
 
