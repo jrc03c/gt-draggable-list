@@ -1,4 +1,5 @@
 const { createApp } = require("vue")
+const Sortable = require("sortablejs")
 
 $(window).on("startGTDraggableList", (event, data) => {
   const container = document.querySelector("#gt-draggable-list")
@@ -7,8 +8,8 @@ $(window).on("startGTDraggableList", (event, data) => {
   const app = createApp({
     template: /* html */ `
       <div>
-        <ul>
-          <li v-for="item in items">
+        <ul ref="list" class="button-group answers question_multiple_choice">
+          <li v-for="item in items" class="answer">
             {{ item }}
           </li>
         </ul>
@@ -30,6 +31,16 @@ $(window).on("startGTDraggableList", (event, data) => {
         const sortedItems = items
         $(window).trigger("endDraggableList", { sortedItems, returnLabel })
       },
+    },
+
+    mounted() {
+      const self = this
+
+      const sortable = Sortable.create(self.$refs.list, {
+        animation: 150,
+        // handle: "glyphicon glyphicon-move",
+        ghostClass: "ghost",
+      })
     },
   })
 
