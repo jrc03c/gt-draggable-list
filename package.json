@@ -5,7 +5,15 @@
   "main": "src/index.js",
   "author": "jrc03c",
   "license": "ISC",
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --outfile=dist/gt-draggable-list.js --minify",
+    "watch": "esbuild src/index.js --bundle --outfile=dist/gt-draggable-list.js --minify --watch"
+  },
   "devDependencies": {
     "esbuild": "^0.14.23"
+  },
+  "dependencies": {
+    "sortablejs": "^1.14.0",
+    "vue": "^3.2.31"
   }
 }
