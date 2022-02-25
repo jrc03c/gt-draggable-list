@@ -8,8 +8,10 @@ $(window).on("startGTDraggableList", (event, data) => {
   const app = createApp({
     template: /* html */ `
       <div>
-        <ul ref="list" class="button-group answers question_multiple_choice">
+        <ul ref="list" class="button-group answers question_multiple_choice gt-draggable-list">
           <li v-for="item in items" class="answer">
+            <i class="fa fa-grip-lines answer_icon"></i>
+
             {{ item }}
           </li>
         </ul>
@@ -48,7 +50,6 @@ $(window).on("startGTDraggableList", (event, data) => {
       self.sortable = Sortable.create(self.$refs.list, {
         animation: 150,
         ghostClass: "ghost",
-        // handle: "glyphicon glyphicon-move",
 
         onUpdate(event) {
           const item = self.sortedItems[event.oldIndex]

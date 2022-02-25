@@ -1,3 +1,8 @@
+.gt-draggable-list .answer_icon,
+.gt-draggable-list .answer_icon::before {
+  color: rgb(200, 200, 200) !important;
+}
+
 .ghost {
   background-color: #d9edf7 !important;
   border: 1px solid #bce8f1 !important;
